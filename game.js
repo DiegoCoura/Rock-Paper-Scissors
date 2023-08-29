@@ -6,16 +6,47 @@ const MOVES = {
   SCISSORS: "scissors",
 };
 
+let score = {
+  computer: 0,
+  player: 0,
+};
+
+const buttons = document.querySelectorAll(".btn");
+buttons.forEach((btn) => btn.addEventListener("click", getPlayerChoice));
+
+let playerScoreBoard = document.querySelector(".playerScore");
+let computerScoreBoard = document.querySelector(".computerScore");
+
 function getComputerChoice() {
   const computerChoice = hands[Math.floor(Math.random() * hands.length)];
-
   return computerChoice;
 }
 
 function getPlayerChoice() {
-  const playerChoice = prompt("Type Rock, Paper or Scissors: ").toLowerCase();
-  console.log(playerChoice);
-  return playerChoice;
+  const playerChoice = this.id;
+  const computerChoice = getComputerChoice();
+
+  let winner = playRound(computerChoice, playerChoice);
+
+  score[winner] += 1;
+
+  playerScoreBoard.textContent = (score["player"])
+  computerScoreBoard.textContent = (score["computer"]);
+
+  if (score[winner] === 5) {
+    score = {
+      computer: 0,
+      player: 0,
+    };
+    if (winner === "player") {
+      console.log(`Congrats! You Win The Game!`);
+      return;
+    } else {
+      console.log("Sorry Game Over!");     
+      return;
+    }
+  }
+  return;
 }
 
 function playRound(computerChoice, playerChoice) {
@@ -53,31 +84,3 @@ function playRound(computerChoice, playerChoice) {
 
   return winner;
 }
-
-function game() {
-  let score = {
-    computer: 0,
-    player: 0,
-  };
-
-  for (i = 0; i < 5; i++) {
-    let computerChoice = getComputerChoice();
-    let playerChoice = getPlayerChoice();
-
-    let key = playRound(computerChoice, playerChoice);
-
-    score[key] += 1;
-
-    console.log(score);
-  }
-
-  if (score.computer > score.player) {
-    console.log("You Lose!");
-  } else if (score.computer < score.player) {
-    console.log("You Win!! Congrats!");
-  } else {
-    console.log("It's a tye! You should play again!");
-  }
-}
-
-game();
