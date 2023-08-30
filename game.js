@@ -14,21 +14,26 @@ let score = {
 const buttons = document.querySelectorAll(".btn");
 buttons.forEach((btn) => btn.addEventListener("click", getPlayerChoice));
 
-const scoreBoard = document.querySelector(".scoreBoard");
-const playerScoreBoard = document.querySelector(".playerScore");
-const computerScoreBoard = document.querySelector(".computerScore");
-const currentRound = document.querySelector(".currentRound");
+const scoreBoard = document.querySelector(".score-board");
+const playerScoreBoard = document.querySelector(".player-score");
+const gameTitle = document.querySelector(".game-title");
+const computerScoreBoard = document.querySelector(".computer-score");
+const playerHandSection = document.querySelector(".player-choice");
+const computerHandSection = document.querySelector(".computer-choice");
 
 function createPlayAgainBtn() {
   const playAgainBtn = document.createElement("button");
   const btnContent = document.createTextNode("Play Again");
   playAgainBtn.appendChild(btnContent);
   document.body.appendChild(playAgainBtn);
+  playAgainBtn.classList.add("play-again-btn");
   playAgainBtn.addEventListener("click", () => {
     playAgainBtn.remove();
-    currentRound.textContent = "";
+    gameTitle.textContent = "Rock, Paper, Scissors";
     playerScoreBoard.textContent = 0;
     computerScoreBoard.textContent = 0;
+    playerHandSection.innerHTML = "";
+    computerHandSection.innerHTML = "";
   });
 }
 
@@ -37,9 +42,26 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-function getPlayerChoice() {
+
+function getPlayerChoice() {  
+  if (playerHandSection.hasChildNodes()){
+    playerHandSection.innerHTML = "";
+  }
+
+  if(computerHandSection.hasChildNodes()){
+    computerHandSection.innerHTML = "";
+  }
+
   const playerChoice = this.id;
   const computerChoice = getComputerChoice();
+
+  let playerHand = document.createElement("img");
+  playerHand.setAttribute("src", `imgs/${playerChoice}.png`);
+  playerHandSection.appendChild(playerHand);
+
+  let computerHand = document.createElement("img");
+  computerHand.setAttribute("src", `imgs/${computerChoice}.png`);
+  computerHandSection.appendChild(computerHand);
 
   let winner = playRound(computerChoice, playerChoice);
 
@@ -54,9 +76,9 @@ function getPlayerChoice() {
       player: 0,
     };
     if (winner === "player") {
-      currentRound.textContent ="Congrats! You Win The Game!";
+      gameTitle.textContent ="Congrats! You Win The Game!";
     } else {
-      currentRound.textContent = "Sorry! You Lose!";
+      gameTitle.textContent = "Sorry! You Lose!";
     }
     createPlayAgainBtn();
   }
@@ -67,33 +89,33 @@ function playRound(computerChoice, playerChoice) {
   let winner;
 
   if (computerChoice === playerChoice) {
-    currentRound.textContent = "It's a tye!";
+    gameTitle.textContent = "It's a tye!";
   } else if (computerChoice === MOVES.ROCK && playerChoice === MOVES.PAPER) {
-    currentRound.textContent = `You Win! ${playerChoice} beats ${computerChoice}`;
+    gameTitle.textContent = `You Win! ${playerChoice} beats ${computerChoice}`;
     winner = "player";
   } else if (computerChoice === MOVES.ROCK && playerChoice === MOVES.SCISSORS) {
-    currentRound.textContent = `You Lose! ${computerChoice} beats ${playerChoice}!`;
+    gameTitle.textContent = `You Lose! ${computerChoice} beats ${playerChoice}!`;
     winner = "computer";
   } else if (computerChoice === MOVES.PAPER && playerChoice === MOVES.ROCK) {
-    currentRound.textContent = `You Lose! ${computerChoice} beats ${playerChoice}!`;
+    gameTitle.textContent = `You Lose! ${computerChoice} beats ${playerChoice}!`;
     winner = "computer";
   } else if (
     computerChoice === MOVES.PAPER &&
     playerChoice === MOVES.SCISSORS
   ) {
-    currentRound.textContent = `You Win! ${playerChoice} beats ${computerChoice}`;
+    gameTitle.textContent = `You Win! ${playerChoice} beats ${computerChoice}`;
     winner = "player";
   } else if (computerChoice === MOVES.SCISSORS && playerChoice === MOVES.ROCK) {
-    currentRound.textContent = `You Win! ${playerChoice} beats ${computerChoice}`;
+    gameTitle.textContent = `You Win! ${playerChoice} beats ${computerChoice}`;
     winner = "player";
   } else if (
     computerChoice === MOVES.SCISSORS &&
     playerChoice === MOVES.PAPER
   ) {
-    currentRound.textContent = `You Lose! ${computerChoice} beats ${playerChoice}!`;
+    gameTitle.textContent = `You Lose! ${computerChoice} beats ${playerChoice}!`;
     winner = "computer";
   } else {
-    currentRound.textContent = "Ops! We have a problem!";
+    gameTitle.textContent = "Ops! We have a problem!";
   }
 
   return winner;
