@@ -32,7 +32,7 @@ body {
 
 .battle-section img {
   max-width: 400px;
-  height: auto;
+  max-height: 400px;
   -webkit-filter: drop-shadow(13px 15px 8px #000000);
   filter: drop-shadow(13px 15px 8px #000000);
 }
@@ -66,4 +66,24 @@ button {
   background-color: #dbe22b;
   position: absolute;
   font-size: 30px;
+}
+
+@media (max-height: 760px) {
+
+  .game-title {
+    margin: 0px auto 90px;
+    font-size: 38px;
+  }
+
+  .battle-section {
+    min-height: 300px;
+    margin-bottom: 80px;
+  }
+
+  .battle-section img {
+    max-width: 400px;
+    max-height: 200px;
+    -webkit-filter: drop-shadow(13px 15px 8px #000000);
+    filter: drop-shadow(13px 15px 8px #000000);
+  }
 }
