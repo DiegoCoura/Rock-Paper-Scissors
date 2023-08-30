@@ -3,26 +3,41 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <title>Rock Paper Scissors</title>
   </head>
   <body>
-    <h1>Rock, Paper, Scissors</h1>
+    <h1 class="game-title">Rock, Paper, Scissors</h1>
 
-    <button id="rock" class="btn rock">Rock</button>
-    <button id="paper" class="btn paper">Paper</button>
-    <button id="scissors" class="btn scissors">Scissors</button>
-    <br />
-    <div class="scoreBoard">
-      <h2>Score</h2>
-      <div>
-        <h3>Player: <span class="playerScore"></span></h3>
+    <div class="battle-section">
+      <div class="score-board">
+        <div class="player-board">
+          <h3>You: <span class="player-score"></span></h3>
+          <div class="player-choice"></div>
+        </div>
+
+        <div class="computer-board">
+          <h3>Computer: <span class="computer-score"></span></h3>
+          <div class="computer-choice"></div>
+        </div>
       </div>
-      <div>
-        <h3>Computer: <span class="computerScore"></span></h3>
+    </div>
+    <div class="hands">
+      <div class="player-hands">
+        <button id="rock" class="btn rock">Rock</button>
+        <button id="paper" class="btn paper">Paper</button>
+        <button id="scissors" class="btn scissors">Scissors</button>
       </div>
-      <div>
-        <h3 class="currentRound"></h3>
+      <div class="computer">
+        <button class="rock">Rock</button>
+        <button class="paper">Paper</button>
+        <button class="scissors">Scissors</button>
       </div>
     </div>
 
